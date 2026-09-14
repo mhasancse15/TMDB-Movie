@@ -9,7 +9,6 @@ import '../../../../core/widgets/error_view.dart';
 import '../../../../core/widgets/section_header.dart';
 import '../../../../core/widgets/shimmer_loader.dart';
 import '../../../movies/presentation/widgets/movie_card.dart';
-import '../../../tv/presentation/widgets/tv_card.dart';
 import '../notifiers/home_notifier.dart';
 import '../widget/featured_movies_carousel.dart';
 
