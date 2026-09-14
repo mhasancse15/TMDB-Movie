@@ -258,48 +258,83 @@ class _HomeLoadingShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+    return const SingleChildScrollView(
+      padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 40),
-
-          const ShimmerBox(
+          SizedBox(height: 40),
+          ShimmerBox(
             width: double.infinity,
             height: 200,
             borderRadius: BorderRadius.all(
               Radius.circular(16),
             ),
           ),
-
-          const SizedBox(height: 24),
-
-          const ShimmerBox(
+          SizedBox(height: 24),
+          ShimmerBox(
             width: 160,
             height: 24,
           ),
-
-          const SizedBox(height: 16),
-
-          SizedBox(
-            height: 260,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 3,
-              separatorBuilder: (_, __) =>
-              const SizedBox(width: 12),
-              itemBuilder: (_, __) {
-                return const SizedBox(
-                  width: 130,
-                  child: MovieCardShimmer(),
-                );
-              },
-            ),
-          ),
+          SizedBox(height: 16),
+          // Shimmer for the movie rail
+          _MovieRailShimmer(titleWidth: 160),
+          SizedBox(height: 24),
+          _MovieRailShimmer(titleWidth: 160),
+          SizedBox(height: 24),
+          _MovieRailShimmer(titleWidth: 160),
+          SizedBox(height: 24),
+          _MovieRailShimmer(titleWidth: 160),
+          SizedBox(height: 24),
         ],
       ),
+    );
+  }
+}
+
+class _MovieRailShimmer extends StatelessWidget {
+  final double titleWidth;
+
+  const _MovieRailShimmer({
+    required this.titleWidth,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ShimmerBox(
+                width: titleWidth,
+                height: 24,
+              ),
+              const ShimmerBox(
+                width: 60,
+                height: 20,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 260,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 3,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            itemBuilder: (_, __) {
+              return const SizedBox(
+                width: 130,
+                child: MovieCardShimmer(),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
