@@ -20,37 +20,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  final PageController _carouselController =
-      PageController(viewportFraction: 0.9);
-  Timer? _carouselTimer;
-  int _currentCarouselPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _startCarouselTimer();
-  }
-
-  void _startCarouselTimer() {
-    _carouselTimer?.cancel();
-    _carouselTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
-      if (_carouselController.hasClients) {
-        _currentCarouselPage = (_currentCarouselPage + 1) % 5;
-        _carouselController.animateToPage(
-          _currentCarouselPage,
-          duration: const Duration(milliseconds: 600),
-          curve: Curves.fastOutSlowIn,
-        );
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _carouselTimer?.cancel();
-    _carouselController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
