@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,6 +23,41 @@ class FeaturedMoviesCarousel extends StatefulWidget {
 class _FeaturedMoviesCarouselState extends State<FeaturedMoviesCarousel> {
   final PageController _controller = PageController(viewportFraction: 0.92);
   int _currentIndex = 0;
+  Timer? _autoSlideTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoSlide();
+  }
+
+  void _startAutoSlide() {
+    _autoSlideTimer?.cancel();
+
+    _autoSlideTimer = Timer.periodic(
+      const Duration(seconds: 4),
+          (_) {
+        if (!_controller.hasClients || widget.movies.isEmpty) {
+          return;
+        }
+
+        final nextPage =
+            (_currentIndex + 1) % widget.movies.length;
+
+        _controller.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _autoSlideTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +68,13 @@ class _FeaturedMoviesCarouselState extends State<FeaturedMoviesCarousel> {
           child: PageView.builder(
             controller: _controller,
             itemCount: widget.movies.length,
+
             onPageChanged: (index) {
-              setState(() => _currentIndex = index);
+              setState(() {
+                _currentIndex = index;
+              });
             },
+
             itemBuilder: (context, index) {
               final movie = widget.movies[index];
 

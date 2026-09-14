@@ -73,7 +73,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 floating: true,
                 pinned: true,
                 expandedHeight: 60,
-                backgroundColor: AppColors.darkBackground,
+                backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
                 title: Row(
                   children: [
                     Container(
