@@ -1,0 +1,21 @@
+---
+description: Global Flutter AI engineering rules
+alwaysApply: true
+---
+
+For Flutter/Dart projects, follow the global `flutter-ai-agent` skill.
+
+Before coding:
+- inspect pubspec.yaml
+- inspect lib/ and test/
+- detect architecture/state/networking/routing/persistence
+- read project-local instructions
+
+Adapt to the existing architecture.
+
+Do not force Riverpod, BLoC, Clean Architecture, or another framework if the project uses something else.
+
+After meaningful changes:
+- dart format .
+- flutter analyze
+- run relevant tests
